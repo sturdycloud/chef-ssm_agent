@@ -1,4 +1,4 @@
-ssm\_agent cookbook
+study_ssm_agent cookbook
 ===================
 
 Description
