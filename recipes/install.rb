@@ -7,12 +7,13 @@ remote_file 'amazon-ssm-agent' do
   mode 0644
 end
 
-# Install the pakage
+# Install the package
 # @since 0.1.0
 package 'amazon-ssm-agent' do
   source node['ssm_agent']['package']['path']
   provider value_for_platform_family(
     'rhel' => Chef::Provider::Package::Yum,
+    'amazon' => Chef::Provider::Package::Yum,
     'debian' => Chef::Provider::Package::Dpkg
   )
 end
