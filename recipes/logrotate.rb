@@ -5,7 +5,7 @@ logrotate_app 'amazon-ssm-agent' do
   )
   rotate node['ssm_agent']['logrotate']['rotate']
   frequency node['ssm_agent']['logrotate']['frequency']
-  options node['ssm_agent']['logrotate']['options']
+  options node['ssm_agent']['logrotate']['options'] if node['ssm_agent']['logrotate']['options']
   postrotate node['ssm_agent']['logrotate']['postrotate']
   template_mode '0644'
 end
