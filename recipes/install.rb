@@ -20,8 +20,6 @@ end
 # Ensure service state
 # @since 0.1.0
 service node['ssm_agent']['service']['name'] do
-  provider value_for_platform(
-    'amazon' => {'default' => Chef::Provider::Service::Upstart} 
-  )
+  provider Chef::Provider::Service::Upstart if node['platform'].include? 'amazon'
   action node['ssm_agent']['service']['actions']
 end
