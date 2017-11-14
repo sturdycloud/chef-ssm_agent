@@ -1,8 +1,12 @@
 default['ssm_agent'].tap do |config|
   # Attempt to detect the current region from Ohai
   # @since 0.1.0
-  aws_az = node.fetch('ec2', {}).fetch('placement_availability_zone')
-  config['region'] = aws_az ? aws_az[0..-2] : 'us-east-1'
+  if node['ec2'] && node['ec2']['region'] # Chef 13+
+    config['region'] = node['ec2']['region']
+  else
+    aws_az = node.fetch('ec2', {}).fetch('placement_availability_zone', nil)
+    config['region'] = aws_az ? aws_az[0..-2] : 'us-east-1'
+  end
 
   # Version of the package to download and install
   # @since 0.1.0
