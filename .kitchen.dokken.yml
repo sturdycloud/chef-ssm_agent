@@ -1,0 +1,30 @@
+---
+driver:
+  name: dokken
+
+transport:
+  name: dokken
+
+provisioner:
+  name: dokken
+
+verifier:
+  name: inspec
+
+platforms:
+  - name: ubuntu-16.04
+    driver:
+      privileged: true
+      pid_one_command: /lib/systemd/systemd
+      volumes:
+        - /sys/fs/cgroup:/sys/fs/cgroup:ro # required by systemd
+  - name: centos-7
+    driver:
+      pid_one_command: /sbin/init
+      intermediate_instructions: # https://stackoverflow.com/a/31134244
+        - RUN rm -rf /sbin/initctl && ln -s /sbin/initctl.distrib /sbin/initctl
+
+suites:
+  - name: default
+    run_list:
+      - recipe[sturdy_ssm_agent::default]

@@ -33,7 +33,8 @@ package 'amazon-ssm-agent' do
   provider value_for_platform_family(
     'rhel' => Chef::Provider::Package::Yum,
     'amazon' => Chef::Provider::Package::Yum,
-    'debian' => Chef::Provider::Package::Dpkg
+    'debian' => Chef::Provider::Package::Dpkg,
+    'windows' => Chef::Provider::Package::Windows
   )
 end
 

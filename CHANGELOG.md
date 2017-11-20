@@ -1,6 +1,12 @@
 sturdy_ssm_agent cookbook
 ===================
 
+v1.0.1
+------
+* Preliminary Windows support (no more attribute evaluation errors on Windows)
+* Fix test-kitchen cookbook name
+* Add dokken kitchen.yaml
+
 v1.0.0
 ------
 * Fork to new name

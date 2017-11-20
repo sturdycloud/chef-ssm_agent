@@ -19,7 +19,7 @@ platforms:
 suites:
   - name: default
     run_list:
-      - recipe[ssm_agent::default]
+      - recipe[sturdy_ssm_agent::default]
     verifier:
       inspec_tests:
         - test/recipes
