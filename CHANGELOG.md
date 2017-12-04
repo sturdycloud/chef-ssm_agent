@@ -1,6 +1,10 @@
 sturdy_ssm_agent cookbook
 ===================
 
+v1.1.0
+------
+* Preliminary SUSE Linux support
+
 v1.0.1
 ------
 * Preliminary Windows support (no more attribute evaluation errors on Windows)
