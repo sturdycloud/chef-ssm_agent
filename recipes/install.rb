@@ -32,6 +32,7 @@ package 'amazon-ssm-agent' do
   source node['ssm_agent']['package']['path']
   provider value_for_platform_family(
     'rhel' => Chef::Provider::Package::Yum,
+    'suse' => Chef::Provider::Package::Zypper,
     'amazon' => Chef::Provider::Package::Yum,
     'debian' => Chef::Provider::Package::Dpkg,
     'windows' => Chef::Provider::Package::Windows
