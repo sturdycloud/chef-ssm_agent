@@ -83,5 +83,5 @@ default['ssm_agent'].tap do |config|
   # Actions to set the agent to
   # * Note: We set this to disable / start to provide faster boot times
   # @since 0.1.0
-  config['service']['actions'] = %w(disable start)
+  # config['service']['actions'] = %w(disable start)
 end
