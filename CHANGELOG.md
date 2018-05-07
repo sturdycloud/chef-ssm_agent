@@ -1,6 +1,10 @@
 sturdy_ssm_agent cookbook
 ===================
 
+v2.0.0
+------
+* Change default service behavior to install/start
+
 v1.1.0
 ------
 * Preliminary SUSE Linux support

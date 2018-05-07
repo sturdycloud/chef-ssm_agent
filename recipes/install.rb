@@ -28,7 +28,7 @@ end
 
 # Install the package
 # @since 0.1.0
-package 'amazon-ssm-agent' do
+package 'amazon-ssm-agent' do # ~FC109
   source node['ssm_agent']['package']['path']
   provider value_for_platform_family(
     'rhel' => Chef::Provider::Package::Yum,
