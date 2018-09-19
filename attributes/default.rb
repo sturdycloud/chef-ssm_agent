@@ -18,6 +18,8 @@
 # limitations under the License.
 
 default['ssm_agent'].tap do |config|
+  config['install_method'] = 'package'
+
   # Attempt to detect the current region from Ohai
   # @since 0.1.0
   if node['ec2'] && node['ec2']['region'] # Chef 13+
