@@ -17,5 +17,5 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-include_recipe "#{cookbook_name}::install"
+include_recipe "#{cookbook_name}::install_#{node['ssm_agent']['install_method']}"
 include_recipe "#{cookbook_name}::logrotate"
