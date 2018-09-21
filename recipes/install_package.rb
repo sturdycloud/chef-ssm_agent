@@ -41,6 +41,7 @@ package 'amazon-ssm-agent' do # ~FC109
     'debian' => Chef::Provider::Package::Dpkg,
     'windows' => Chef::Provider::Package::Windows
   )
+  action :upgrade
 end
 
 # Ensure service state
