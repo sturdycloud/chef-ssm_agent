@@ -1,9 +1,9 @@
 #
 # Cookbook:: sturdy_ssm_agent
-# Recipe:: default
+# Recipe:: install_snap
 #
-# Copyright:: 2017, Sturdy Networks
-# Copyright:: 2017, Jonathan Serafini
+# Copyright:: 2018, Arvato Systems
+# Copyright:: 2018, Patrick Robinson
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -17,5 +17,13 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-include_recipe "#{cookbook_name}::install_#{node['ssm_agent']['install_method']}"
-include_recipe "#{cookbook_name}::logrotate"
+package 'amazon-ssm-agent' do
+  action :remove
+end
+
+execute 'snap install amazon-ssm-agent --classic'
+
+execute 'snap start --enable amazon-ssm-agent' do
+  action :run
+  not_if 'ps aux | grep amazon-ssm-agent'
+end

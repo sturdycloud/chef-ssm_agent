@@ -1,6 +1,6 @@
 #
 # Cookbook:: sturdy_ssm_agent
-# Recipe:: install
+# Recipe:: install_package
 #
 # Copyright:: 2017, Sturdy Networks
 # Copyright:: 2017, Jonathan Serafini
@@ -16,6 +16,10 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+
+if Dir.exist?('/snap/amazon-ssm-agent')
+  execute 'snap remove amazon-ssm-agent'
+end
 
 # Download the installer
 # @since 0.1.0
@@ -37,6 +41,7 @@ package 'amazon-ssm-agent' do # ~FC109
     'debian' => Chef::Provider::Package::Dpkg,
     'windows' => Chef::Provider::Package::Windows
   )
+  action :upgrade
 end
 
 # Ensure service state
