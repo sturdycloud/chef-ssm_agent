@@ -1,6 +1,10 @@
 sturdy_ssm_agent cookbook
 ===================
 
+v2.1.0
+------
+* Support snap & package installs (defaulting to snap)
+
 v2.0.0
 ------
 * Change default service behavior to install/start

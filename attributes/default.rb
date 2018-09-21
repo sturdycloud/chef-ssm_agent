@@ -18,7 +18,7 @@
 # limitations under the License.
 
 default['ssm_agent'].tap do |config|
-  config['install_method'] = 'package'
+  config['install_method'] = 'snap'
 
   # Attempt to detect the current region from Ohai
   # @since 0.1.0

@@ -21,9 +21,11 @@ package 'amazon-ssm-agent' do
   action :remove
 end
 
-execute 'snap install amazon-ssm-agent --classic'
+execute 'snap install amazon-ssm-agent --classic' do
+  not_if { ::Dir.exist?('/snap/amazon-ssm-agent') }
+end
 
 execute 'snap start --enable amazon-ssm-agent' do
   action :run
-  not_if 'ps aux | grep amazon-ssm-agent'
+  not_if 'systemctl is-active --quiet snap.amazon-ssm-agent.amazon-ssm-agent.service'
 end

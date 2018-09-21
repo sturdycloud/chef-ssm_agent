@@ -17,8 +17,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-if Dir.exist?('/snap/amazon-ssm-agent')
-  execute 'snap remove amazon-ssm-agent'
+execute 'snap remove amazon-ssm-agent' do
+  only_if { ::Dir.exist?('/snap/amazon-ssm-agent') }
 end
 
 # Download the installer
