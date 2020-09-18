@@ -92,5 +92,5 @@ default['ssm_agent'].tap do |config|
 
   # Actions to set the agent to
   # @since 0.1.0
-  config['service']['actions'] = %w(enable start)
+  config['service']['actions'] = %w[enable start]
 end
