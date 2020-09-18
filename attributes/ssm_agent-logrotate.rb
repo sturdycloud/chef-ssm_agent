@@ -17,13 +17,19 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+# Save repeating the same node attribute
+service_name = node['ssm_agent']['service']['name']
+
 # Amazon SSM Agent logrotation
 # @since 0.1.0
 default['ssm_agent']['logrotate'].tap do |config|
   config['rotate'] = 7
   config['frequency'] = 'daily'
-  config['postrotate'] = format(
-    'service %s restart',
-    node['ssm_agent']['service']['name']
-  )
+
+  # Support systemd distros natively
+  config['postrotate'] = if node['init_package'] == 'systemd'
+                           "systemctl restart #{service_name}"
+                         else
+                           "service #{service_name} restart"
+                         end
 end
