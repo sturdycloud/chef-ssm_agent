@@ -1,6 +1,10 @@
 sturdy_ssm_agent cookbook
 ===================
 
+v2.2.0
+------
+* Additional architecture support
+
 v2.1.0
 ------
 * Support snap & package installs (defaulting to snap)
