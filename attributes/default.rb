@@ -4,6 +4,7 @@
 #
 # Copyright:: 2017, Sturdy Networks
 # Copyright:: 2017, Jonathan Serafini
+# Copyright:: 2020, Keith Gable
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -16,6 +17,14 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+
+# Map the kernel machine to the architecture used by Amazon in URLs.
+# Windows gets a Linux-compatible machine type by Ohai/Chef.
+architecture = case node['kernel']['machine']
+               when 'aarch64'      then 'arm64'
+               when 'i386', 'i686' then '386'
+               when 'x86_64'       then 'amd64'
+               end
 
 default['ssm_agent'].tap do |config|
   config['install_method'] = node['platform'] == 'ubuntu' ? 'snap' : 'package'
@@ -39,11 +48,11 @@ default['ssm_agent'].tap do |config|
     'https://amazon-ssm-%s.s3.amazonaws.com/%s/%s/%s',
     config['region'],
     config['package']['version'],
-    value_for_platform_family('rhel' => 'linux_amd64',
-                              'suse' => 'linux_amd64',
-                              'amazon' => 'linux_amd64',
-                              'debian' => 'debian_amd64',
-                              'windows' => 'windows_amd64'),
+    value_for_platform_family('rhel' => "linux_#{architecture}",
+                              'suse' => "linux_#{architecture}",
+                              'amazon' => "linux_#{architecture}",
+                              'debian' => "debian_#{architecture}",
+                              'windows' => "windows_#{architecture}"),
     value_for_platform_family('rhel' => 'amazon-ssm-agent.rpm',
                               'suse' => 'amazon-ssm-agent.rpm',
                               'amazon' => 'amazon-ssm-agent.rpm',
@@ -84,5 +93,5 @@ default['ssm_agent'].tap do |config|
 
   # Actions to set the agent to
   # @since 0.1.0
-  config['service']['actions'] = %w(enable start)
+  config['service']['actions'] = %w[enable start]
 end
