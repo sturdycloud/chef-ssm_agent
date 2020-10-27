@@ -51,11 +51,13 @@ default['ssm_agent'].tap do |config|
     value_for_platform_family('rhel' => "linux_#{architecture}",
                               'suse' => "linux_#{architecture}",
                               'amazon' => "linux_#{architecture}",
+                              'centos' => "linux_#{architecture}",
                               'debian' => "debian_#{architecture}",
                               'windows' => "windows_#{architecture}"),
     value_for_platform_family('rhel' => 'amazon-ssm-agent.rpm',
                               'suse' => 'amazon-ssm-agent.rpm',
                               'amazon' => 'amazon-ssm-agent.rpm',
+                              'centos' => 'amazon-ssm-agent.rpm',
                               'debian' => 'amazon-ssm-agent.deb',
                               'windows' => 'AmazonSSMAgent.msi')
   )
@@ -67,6 +69,7 @@ default['ssm_agent'].tap do |config|
     value_for_platform_family('rhel' => 'amazon-ssm-agent.rpm',
                               'suse' => 'amazon-ssm-agent.rpm',
                               'amazon' => 'amazon-ssm-agent.rpm',
+                              'centos' => 'amazon-ssm-agent.rpm',
                               'debian' => 'amazon-ssm-agent.deb',
                               'windows' => 'AmazonSSMAgent.msi')
   )
@@ -93,5 +96,7 @@ default['ssm_agent'].tap do |config|
 
   # Actions to set the agent to
   # @since 0.1.0
-  config['service']['actions'] = %w[enable start]
+  if node['platform'] != 'centos'
+    config['service']['actions'] = %w[enable start]
+  end
 end

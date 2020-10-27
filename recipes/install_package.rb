@@ -38,6 +38,7 @@ package 'amazon-ssm-agent' do # ~FC109
     'rhel' => Chef::Provider::Package::Yum,
     'suse' => Chef::Provider::Package::Zypper,
     'amazon' => Chef::Provider::Package::Yum,
+    'ubuntu' => Chef::Provider::Package::Yum,
     'debian' => Chef::Provider::Package::Dpkg,
     'windows' => Chef::Provider::Package::Windows
   )
@@ -47,6 +48,10 @@ end
 # Ensure service state
 # @since 0.1.0
 service node['ssm_agent']['service']['name'] do
-  provider Chef::Provider::Service::Upstart if node['platform'].include? 'amazon'
+  if node['platform'].include? 'centos'
+    provider Chef::Provider::Service::Init
+  elsif node['platform'].include? 'amazon'
+    provider Chef::Provider::Service::Upstart
+  end
   action node['ssm_agent']['service']['actions']
 end
